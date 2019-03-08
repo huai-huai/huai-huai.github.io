@@ -62,6 +62,84 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-第一个项目-烟花的代码" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/03/09/第一个项目-烟花的代码/" class="article-date">
+  <time datetime="2019-03-08T16:06:10.000Z" itemprop="datePublished">2019-03-09</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/03/09/第一个项目-烟花的代码/">第一个项目-烟花的代码</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>（这个项目是通过B站学习的，但是js代码有一些还是不太懂，可能学到后面就懂了）<br>&lt;!doctype html&gt;</p>
+<html><br><head><br><meta charset="utf-8"><br><title>烟花</title><br><br><br><style><br>body,<br>html {<br>  margin: 0;<br>  padding: 0;<br>  overflow:hidden;<br>}<br></style><br><br></head><br><body><br><br><canvas></canvas><br><br><script><br>const rndColor = () =&gt; {<br>    const base  = Math.random() <em> 360 | 0;<br>    const color = (275 </em> (base / 200 | 0)) + base % 200;<br>    return fac =&gt; <code>hsl(${color}, ${(fac || 1) * 100}%, ${(fac || 1) * 60}%)</code>;<br>};<br><br>class Battery<br>{<br>    constructor(fireworks) {<br>        this.fireworks = fireworks;<br>        this.salve = [];<br>        this.x     = Math.random();<br>        this.t     = 0;<br>        this.tmod  = 20 + Math.random() <em> 20 | 0;<br>        this.tmax  = 500 + Math.random() </em> 1000;<br><br>        this._shot = salve =&gt; {<br>            // console.log(this.x <em> this.fireworks.width, salve.y);<br>            if (salve.y &lt; salve.ym) {<br>                salve.cb = this._prepareExplosion;<br>            }<br><br>            salve.x += salve.mx;<br>            salve.y -= 0.01;<br><br>            const r = Math.atan2(-0.01, salve.mx);<br><br>            this.fireworks.engine.strokeStyle = salve.c(.7);<br>            this.fireworks.engine.beginPath();<br><br>            this.fireworks.engine.moveTo(<br>                (this.x + salve.x) </em> this.fireworks.width + Math.cos(r) <em> 4,<br>                salve.y </em> this.fireworks.height + Math.sin(r) <em> 4<br>            );<br><br>            this.fireworks.engine.lineTo(<br>                (this.x + salve.x) </em> this.fireworks.width + Math.cos(r + Math.PI) <em> 4,<br>                salve.y </em> this.fireworks.height + Math.sin(r + Math.PI) <em> 4<br>            );<br><br>            this.fireworks.engine.lineWidth = 3;<br>            this.fireworks.engine.stroke();<br><br>            // this.fireworks.engine.fillRect((this.x + salve.x) </em> this.fireworks.width, salve.y <em> this.fireworks.height, 10, 10);<br>        };<br><br>        this._prepareExplosion = salve =&gt; {<br>            salve.explosion = [];<br><br>            for (let i = 0, max = 32; i &lt; max; i++) {<br>                salve.explosion.push({<br>                    r : 2 </em> i / Math.PI,<br>                    s : 0.5 + Math.random() <em> 0.5,<br>                    d : 0,<br>                    y : 0<br>                });<br>            }<br><br>            salve.cb = this._explode;<br>        };<br><br>        this._explode = salve =&gt; {<br><br>            this.fireworks.engine.fillStyle = salve.c();<br><br>            salve.explosion.forEach(explo =&gt; {<br><br>                explo.d += explo.s;<br>                explo.s </em>= 0.99;<br>                explo.y += 0.5;<br><br>                const alpha = explo.s <em> 2.5;<br>                this.fireworks.engine.globalAlpha = alpha;<br><br>                if (alpha &lt; 0.05) {<br>                    salve.cb = null;<br>                }<br><br>                this.fireworks.engine.fillRect(<br>                    Math.cos(explo.r) </em> explo.d + (this.x + salve.x) <em> this.fireworks.width,<br>                    Math.sin(explo.r) </em> explo.d + explo.y + salve.y <em> this.fireworks.height,<br>                    3,<br>                    3<br>                );<br>            });<br><br>            this.fireworks.engine.globalAlpha = 1;<br>        }<br>    }<br><br>    pushSalve() {<br>        this.salve.push({<br>            x: 0,<br>            mx: -0.02 </em> Math.random() <em> 0.04,<br>            y: 1,<br>            ym: 0.05 + Math.random() </em> 0.5,<br>            c: rndColor(),<br>            cb: this._shot<br>        });<br>    };<br><br>    render() {<br><br>        this.t++;<br><br>        if (this.t &lt; this.tmax &amp;&amp; (this.t % this.tmod) === 0) {<br>            this.pushSalve();<br>        }<br><br>        let rendered = false;<br><br>        this.salve.forEach(salve =&gt; {<br><br>            if (salve.cb) {<br>                rendered = true;<br>                salve.cb(salve);<br>            }<br><br>        });<br><br>        if (this.t &gt; this.tmax) {<br>            return rendered;<br>        }<br><br>        return true;<br>    }<br>}<br><br>class Fireworks<br>{<br>    constructor() {<br>        this.canvas = window.document.querySelector(‘canvas’);<br>        this.engine = this.canvas.getContext(‘2d’);<br>        this.stacks = new Map();<br><br>        this.resize();<br>    }<br><br>    resize() {<br>        this.width  = window.innerWidth;<br>        this.height = window.innerHeight;<br><br>        this.canvas.setAttribute(‘width’, this.width);<br>        this.canvas.setAttribute(‘height’, this.height);<br>    }<br><br>    clear() {<br>        this.engine.clearRect(0, 0, this.width, this.height);<br>        this.engine.fillStyle = ‘#222’;<br>        this.engine.fillRect(0, 0, this.width, this.height);<br>    }<br><br>    addBattery() {<br>      const bat = new Battery(this);<br>      this.stacks.set(Date.now(), bat);<br>    }<br><br>    render() {<br><br>        if (Math.random() &lt; 0.05) {<br>          this.addBattery();<br>        }<br><br>        this.clear();<br><br>        this.stacks.forEach((scene, key) =&gt; {<br><br>            const rendered = scene.render();<br><br>            if (!rendered) {<br>                this.stacks.delete(key);<br>            }<br>        });<br><br>        requestAnimationFrame(this.render.bind(this));<br>    }<br><br>    run() {<br>        for(let i = 0; i &lt; 5; i++) {<br>          this.addBattery();<br>        }<br>        window.addEventListener(‘resize’, this.resize.bind(this));<br>        this.render();<br>    }<br>}<br><br>a = new Fireworks();<br>a.run();</script><br><br></body><br></html>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/03/09/第一个项目-烟花的代码/" data-id="cjt09amsg0001dwuf1gdqh5qf" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-假期周报" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/03/09/假期周报/" class="article-date">
+  <time datetime="2019-03-08T16:05:39.000Z" itemprop="datePublished">2019-03-09</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/03/09/假期周报/">假期周报</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>假期任务<br>一.假期学习方向：<br>1.指针（尤其是多维数组，容易弄混），结构体与共用体，枚举；<br>2.学了一小部分JavaScript，复习了HTML和CSS，了解了一些web基础知识；<br>3.复习了计算机基础知识，看了操作系统的功能；</p>
+<p>二.学习总结：<br>1.分辨指针中一维数组和多维数组的区别，结构体与共用体的区别（结构体是一系列的封装，共用体不是）；<br>2.CSS的使用方式：内联样式，内部样式表，外部引用；<br>3.硬件和软件（系统软件，应用软件，支撑软件）的区别，操作系统的功能（硬件控制，资源管理，用户接口），菜单有点没看懂，虚拟机的安装；</p>
+<p>三.LeetCode代码：<br>1.<a href="https://paste.ubuntu.com/p/262zS72cJx/" target="_blank" rel="noopener">https://paste.ubuntu.com/p/262zS72cJx/</a><br>2.<a href="https://paste.ubuntu.com/p/ByzDYf3Zq4/" target="_blank" rel="noopener">https://paste.ubuntu.com/p/ByzDYf3Zq4/</a><br>3.<a href="https://paste.ubuntu.com/p/96dJYjyX7T/" target="_blank" rel="noopener">https://paste.ubuntu.com/p/96dJYjyX7T/</a><br>4.<a href="https://paste.ubuntu.com/p/FMJsMXGThQ/" target="_blank" rel="noopener">https://paste.ubuntu.com/p/FMJsMXGThQ/</a><br>5.<a href="https://paste.ubuntu.com/p/SQjFSXn34d/" target="_blank" rel="noopener">https://paste.ubuntu.com/p/SQjFSXn34d/</a><br>6.<a href="https://paste.ubuntu.com/p/DYgYsftdNt/" target="_blank" rel="noopener">https://paste.ubuntu.com/p/DYgYsftdNt/</a><br>7.<a href="https://paste.ubuntu.com/p/6Y5TMbz8dJ/" target="_blank" rel="noopener">https://paste.ubuntu.com/p/6Y5TMbz8dJ/</a><br>8.<a href="https://paste.ubuntu.com/p/PGgTk89TXj/" target="_blank" rel="noopener">https://paste.ubuntu.com/p/PGgTk89TXj/</a><br>9.<a href="https://paste.ubuntu.com/p/y6H3GMnpv9/" target="_blank" rel="noopener">https://paste.ubuntu.com/p/y6H3GMnpv9/</a><br>10.<br>11.<a href="https://paste.ubuntu.com/p/qNrpHgx3X4/" target="_blank" rel="noopener">https://paste.ubuntu.com/p/qNrpHgx3X4/</a><br>12.<a href="https://paste.ubuntu.com/p/DgYdcTS74C/" target="_blank" rel="noopener">https://paste.ubuntu.com/p/DgYdcTS74C/</a></p>
+<p>四.接下来的进度：<br>1.C语言指针和结构体那一块还要加强；<br>2.开始学习Java；<br>3.继续学习JavaScript；<br>4.Linux还需要学习。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/03/09/假期周报/" data-id="cjt09amsg0000dwuf3o9rlcog" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-js小资料" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2019/01/30/js小资料/" class="article-date">
@@ -89,7 +167,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/01/30/js小资料/" data-id="cjrjbxepp0000eoufrs7h0h9d" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/01/30/js小资料/" data-id="cjt09amsq0004dwufy9nj82zr" class="article-share-link">Share</a>
       
       
     </footer>
@@ -131,7 +209,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/01/05/第三次周报/" data-id="cjrjbxeqy0005eoufycmanbs0" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/01/05/第三次周报/" data-id="cjt09amsq0005dwuf81y5zvs6" class="article-share-link">Share</a>
       
       
     </footer>
@@ -169,7 +247,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/12/15/第二次周报/" data-id="cjrjbxeqa0004eouf30u9yvs3" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2018/12/15/第二次周报/" data-id="cjt09amtk0007dwuf5ev06wkz" class="article-share-link">Share</a>
       
       
     </footer>
@@ -206,7 +284,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/12/01/文件名/" data-id="cjrjbxepz0002eoufb0cq8qsm" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2018/12/01/文件名/" data-id="cjt09amsq0003dwufrs0hjym6" class="article-share-link">Share</a>
       
       
     </footer>
@@ -243,7 +321,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/12/01/我的第一篇文章/" data-id="cjrjbxeq00003eoufvri4vk2s" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2018/12/01/我的第一篇文章/" data-id="cjt09amt00006dwuflrpxk252" class="article-share-link">Share</a>
       
       
     </footer>
@@ -288,7 +366,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/10/14/hello-world/" data-id="cjrjbxepy0001eouftnnxdv80" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2018/10/14/hello-world/" data-id="cjt09amsg0002dwuftas2whpg" class="article-share-link">Share</a>
       
       
     </footer>
@@ -316,7 +394,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">January 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">October 2018</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">January 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">October 2018</a></li></ul>
     </div>
   </div>
 
@@ -329,6 +407,14 @@
       <ul>
         
           <li>
+            <a href="/2019/03/09/第一个项目-烟花的代码/">第一个项目-烟花的代码</a>
+          </li>
+        
+          <li>
+            <a href="/2019/03/09/假期周报/">假期周报</a>
+          </li>
+        
+          <li>
             <a href="/2019/01/30/js小资料/">js小资料</a>
           </li>
         
@@ -338,14 +424,6 @@
         
           <li>
             <a href="/2018/12/15/第二次周报/">第二次周报</a>
-          </li>
-        
-          <li>
-            <a href="/2018/12/01/文件名/">文件名</a>
-          </li>
-        
-          <li>
-            <a href="/2018/12/01/我的第一篇文章/">我的第一篇文章</a>
           </li>
         
       </ul>

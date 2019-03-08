@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>第一个项目-烟花的代码 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="（这个项目是通过B站学习的，但是js代码有一些还是不太懂，可能学到后面就懂了）&amp;lt;!doctype html&amp;gt; 烟花body,html {  margin: 0;  padding: 0;  overflow:hidden;}const rndColor = () =&amp;gt; {    const base  = Math.random()  360 | 0;    const colo">
+<meta property="og:type" content="article">
+<meta property="og:title" content="第一个项目-烟花的代码">
+<meta property="og:url" content="http://yoursite.com/2019/03/09/第一个项目-烟花的代码/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="（这个项目是通过B站学习的，但是js代码有一些还是不太懂，可能学到后面就懂了）&amp;lt;!doctype html&amp;gt; 烟花body,html {  margin: 0;  padding: 0;  overflow:hidden;}const rndColor = () =&amp;gt; {    const base  = Math.random()  360 | 0;    const colo">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2019-03-08T16:08:51.783Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="第一个项目-烟花的代码">
+<meta name="twitter:description" content="（这个项目是通过B站学习的，但是js代码有一些还是不太懂，可能学到后面就懂了）&amp;lt;!doctype html&amp;gt; 烟花body,html {  margin: 0;  padding: 0;  overflow:hidden;}const rndColor = () =&amp;gt; {    const base  = Math.random()  360 | 0;    const colo">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-第一个项目-烟花的代码" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/03/09/第一个项目-烟花的代码/" class="article-date">
+  <time datetime="2019-03-08T16:06:10.000Z" itemprop="datePublished">2019-03-09</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      第一个项目-烟花的代码
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>（这个项目是通过B站学习的，但是js代码有一些还是不太懂，可能学到后面就懂了）<br>&lt;!doctype html&gt;</p>
+<html><br><head><br><meta charset="utf-8"><br><title>烟花</title><br><br><br><style><br>body,<br>html {<br>  margin: 0;<br>  padding: 0;<br>  overflow:hidden;<br>}<br></style><br><br></head><br><body><br><br><canvas></canvas><br><br><script><br>const rndColor = () =&gt; {<br>    const base  = Math.random() <em> 360 | 0;<br>    const color = (275 </em> (base / 200 | 0)) + base % 200;<br>    return fac =&gt; <code>hsl(${color}, ${(fac || 1) * 100}%, ${(fac || 1) * 60}%)</code>;<br>};<br><br>class Battery<br>{<br>    constructor(fireworks) {<br>        this.fireworks = fireworks;<br>        this.salve = [];<br>        this.x     = Math.random();<br>        this.t     = 0;<br>        this.tmod  = 20 + Math.random() <em> 20 | 0;<br>        this.tmax  = 500 + Math.random() </em> 1000;<br><br>        this._shot = salve =&gt; {<br>            // console.log(this.x <em> this.fireworks.width, salve.y);<br>            if (salve.y &lt; salve.ym) {<br>                salve.cb = this._prepareExplosion;<br>            }<br><br>            salve.x += salve.mx;<br>            salve.y -= 0.01;<br><br>            const r = Math.atan2(-0.01, salve.mx);<br><br>            this.fireworks.engine.strokeStyle = salve.c(.7);<br>            this.fireworks.engine.beginPath();<br><br>            this.fireworks.engine.moveTo(<br>                (this.x + salve.x) </em> this.fireworks.width + Math.cos(r) <em> 4,<br>                salve.y </em> this.fireworks.height + Math.sin(r) <em> 4<br>            );<br><br>            this.fireworks.engine.lineTo(<br>                (this.x + salve.x) </em> this.fireworks.width + Math.cos(r + Math.PI) <em> 4,<br>                salve.y </em> this.fireworks.height + Math.sin(r + Math.PI) <em> 4<br>            );<br><br>            this.fireworks.engine.lineWidth = 3;<br>            this.fireworks.engine.stroke();<br><br>            // this.fireworks.engine.fillRect((this.x + salve.x) </em> this.fireworks.width, salve.y <em> this.fireworks.height, 10, 10);<br>        };<br><br>        this._prepareExplosion = salve =&gt; {<br>            salve.explosion = [];<br><br>            for (let i = 0, max = 32; i &lt; max; i++) {<br>                salve.explosion.push({<br>                    r : 2 </em> i / Math.PI,<br>                    s : 0.5 + Math.random() <em> 0.5,<br>                    d : 0,<br>                    y : 0<br>                });<br>            }<br><br>            salve.cb = this._explode;<br>        };<br><br>        this._explode = salve =&gt; {<br><br>            this.fireworks.engine.fillStyle = salve.c();<br><br>            salve.explosion.forEach(explo =&gt; {<br><br>                explo.d += explo.s;<br>                explo.s </em>= 0.99;<br>                explo.y += 0.5;<br><br>                const alpha = explo.s <em> 2.5;<br>                this.fireworks.engine.globalAlpha = alpha;<br><br>                if (alpha &lt; 0.05) {<br>                    salve.cb = null;<br>                }<br><br>                this.fireworks.engine.fillRect(<br>                    Math.cos(explo.r) </em> explo.d + (this.x + salve.x) <em> this.fireworks.width,<br>                    Math.sin(explo.r) </em> explo.d + explo.y + salve.y <em> this.fireworks.height,<br>                    3,<br>                    3<br>                );<br>            });<br><br>            this.fireworks.engine.globalAlpha = 1;<br>        }<br>    }<br><br>    pushSalve() {<br>        this.salve.push({<br>            x: 0,<br>            mx: -0.02 </em> Math.random() <em> 0.04,<br>            y: 1,<br>            ym: 0.05 + Math.random() </em> 0.5,<br>            c: rndColor(),<br>            cb: this._shot<br>        });<br>    };<br><br>    render() {<br><br>        this.t++;<br><br>        if (this.t &lt; this.tmax &amp;&amp; (this.t % this.tmod) === 0) {<br>            this.pushSalve();<br>        }<br><br>        let rendered = false;<br><br>        this.salve.forEach(salve =&gt; {<br><br>            if (salve.cb) {<br>                rendered = true;<br>                salve.cb(salve);<br>            }<br><br>        });<br><br>        if (this.t &gt; this.tmax) {<br>            return rendered;<br>        }<br><br>        return true;<br>    }<br>}<br><br>class Fireworks<br>{<br>    constructor() {<br>        this.canvas = window.document.querySelector(‘canvas’);<br>        this.engine = this.canvas.getContext(‘2d’);<br>        this.stacks = new Map();<br><br>        this.resize();<br>    }<br><br>    resize() {<br>        this.width  = window.innerWidth;<br>        this.height = window.innerHeight;<br><br>        this.canvas.setAttribute(‘width’, this.width);<br>        this.canvas.setAttribute(‘height’, this.height);<br>    }<br><br>    clear() {<br>        this.engine.clearRect(0, 0, this.width, this.height);<br>        this.engine.fillStyle = ‘#222’;<br>        this.engine.fillRect(0, 0, this.width, this.height);<br>    }<br><br>    addBattery() {<br>      const bat = new Battery(this);<br>      this.stacks.set(Date.now(), bat);<br>    }<br><br>    render() {<br><br>        if (Math.random() &lt; 0.05) {<br>          this.addBattery();<br>        }<br><br>        this.clear();<br><br>        this.stacks.forEach((scene, key) =&gt; {<br><br>            const rendered = scene.render();<br><br>            if (!rendered) {<br>                this.stacks.delete(key);<br>            }<br>        });<br><br>        requestAnimationFrame(this.render.bind(this));<br>    }<br><br>    run() {<br>        for(let i = 0; i &lt; 5; i++) {<br>          this.addBattery();<br>        }<br>        window.addEventListener(‘resize’, this.resize.bind(this));<br>        this.render();<br>    }<br>}<br><br>a = new Fireworks();<br>a.run();</script><br><br></body><br></html>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/03/09/第一个项目-烟花的代码/" data-id="cjt09amsg0001dwuf1gdqh5qf" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2019/03/09/假期周报/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">假期周报</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">January 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">October 2018</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2019/03/09/第一个项目-烟花的代码/">第一个项目-烟花的代码</a>
+          </li>
+        
+          <li>
+            <a href="/2019/03/09/假期周报/">假期周报</a>
+          </li>
+        
+          <li>
+            <a href="/2019/01/30/js小资料/">js小资料</a>
+          </li>
+        
+          <li>
+            <a href="/2019/01/05/第三次周报/">第三次周报</a>
+          </li>
+        
+          <li>
+            <a href="/2018/12/15/第二次周报/">第二次周报</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>
